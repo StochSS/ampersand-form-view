@@ -29,10 +29,10 @@ function FormView(opts) {
 
     if (this.initialize) this.initialize.apply(this, arguments);
 
-    this.render();
-
     // add all our fields
     (opts.fields || result(this, 'fields') || []).forEach(this.addField.bind(this));
+
+    this.render();
 
     //defer till after returning from initialize
     setTimeout(function () {

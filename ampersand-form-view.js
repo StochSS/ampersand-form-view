@@ -17,6 +17,7 @@ function FormView(opts) {
 
     if (opts.data) this.data = opts.data;
     if (opts.model) this.model = opts.model;
+    if (opts.fields) this.fields = opts.model;
 
     this.clean = opts.clean || function (res) { return res; };
     this.valid = false;
@@ -28,9 +29,6 @@ function FormView(opts) {
     this._fieldViewsArray = [];
 
     if (this.initialize) this.initialize.apply(this, arguments);
-
-    // add all our fields
-    (opts.fields || result(this, 'fields') || []).forEach(this.addField.bind(this));
 
     this.render();
 
@@ -144,6 +142,9 @@ extend(FormView.prototype, BBEvents, {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.el.addEventListener('submit', this.handleSubmit, false);
         this.rendered = true;
+
+        // add all our fields
+        (result(this, 'fields') || []).forEach(this.addField.bind(this));
     }
 });
 

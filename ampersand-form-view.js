@@ -27,12 +27,12 @@ function FormView(opts) {
     this._fieldViews = {};
     this._fieldViewsArray = [];
 
-    // add all our fields
+    if (this.initialize) this.initialize.apply(this, arguments);
+
     this.render();
 
+    // add all our fields
     (opts.fields || result(this, 'fields') || []).forEach(this.addField.bind(this));
-
-    if (this.initialize) this.initialize.apply(this, arguments);
 
     //defer till after returning from initialize
     setTimeout(function () {
